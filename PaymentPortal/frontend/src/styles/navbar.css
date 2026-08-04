@@ -1,0 +1,367 @@
+/* ==========================================================================
+   SwiftShield / High-Tech Glass Navigation Bar
+   ========================================================================== */
+
+.mh-nav {
+  position: sticky;
+  top: 0;
+  z-index: 50;
+  background: rgba(7, 10, 18, 0.75);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border-bottom: 1px solid var(--stroke);
+  transition: var(--transition);
+}
+
+.mh-nav-inner {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 0.85rem 1.5rem;
+  display: flex;
+  align-items: center;
+  gap: 1.25rem;
+}
+
+/* Brand Identity */
+.mh-brand {
+  display: flex;
+  align-items: center;
+  gap: 0.85rem;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.mh-brand img {
+  width: 36px;
+  height: 36px;
+  filter: drop-shadow(0 0 10px rgba(58, 160, 255, 0.45));
+  transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.mh-brand:hover img {
+  transform: scale(1.05) rotate(-3deg);
+}
+
+.mh-brand-text {
+  display: flex;
+  flex-direction: column;
+  line-height: 1.15;
+}
+
+.bank-name {
+  font-weight: 700;
+  font-size: 1.05rem;
+  letter-spacing: -0.01em;
+  color: var(--text);
+}
+
+.bank-suite {
+  font-size: 0.75rem;
+  font-weight: 500;
+  letter-spacing: 0.05em;
+  color: var(--brand);
+  text-transform: uppercase;
+}
+
+/* Navigation Links */
+.mh-links {
+  margin-left: 2rem;
+  display: flex;
+  gap: 0.5rem;
+  align-items: center;
+}
+
+.mh-links a {
+  padding: 0.55rem 1rem;
+  border-radius: 999px;
+  border: 1px solid transparent;
+  font-size: 0.9rem;
+  font-weight: 500;
+  color: var(--muted);
+  transition: var(--transition);
+}
+
+.mh-links a:hover,
+.mh-links a.active {
+  color: var(--text);
+  border-color: var(--stroke);
+  background: rgba(255, 255, 255, 0.04);
+}
+
+/* Staff Portal Badge Link */
+.staff-portal-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+}
+
+.portal-badge {
+  font-size: 0.65rem;
+  font-weight: 700;
+  padding: 0.15rem 0.4rem;
+  border-radius: 4px;
+  background: rgba(58, 160, 255, 0.15);
+  color: var(--brand);
+  border: 1px solid rgba(58, 160, 255, 0.3);
+}
+
+/* Actions & Auth Buttons */
+.mh-actions {
+  margin-left: auto;
+  display: flex;
+  align-items: center;
+  gap: 0.85rem;
+}
+
+.mh-auth {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+/* Base button styling */
+.mh-auth .btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.55rem 1.15rem;
+  border-radius: 999px;
+  font-size: 0.88rem;
+  font-weight: 500;
+  transition: all 0.25s ease;
+  text-decoration: none;
+  white-space: nowrap;
+}
+
+/* Ghost / Plain Link Buttons (Sign In & Employee Login) */
+.mh-auth .btn.ghost {
+  color: var(--muted);
+  border: 1px solid transparent;
+  background: transparent;
+}
+
+.mh-auth .btn.ghost:hover {
+  color: var(--text);
+  background: rgba(255, 255, 255, 0.05);
+}
+
+.mh-auth .btn.staff-btn {
+  opacity: 0.8;
+  font-size: 0.82rem;
+}
+
+/* Premium "Open Account" Action Button */
+.mh-auth .btn.solid {
+  color: var(--text);
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid var(--stroke-hover, rgba(255, 255, 255, 0.15));
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+  backdrop-filter: blur(8px);
+  position: relative;
+}
+
+.mh-auth .btn.solid:hover {
+  color: #ffffff;
+  border-color: var(--brand, #3aa0ff);
+  background: rgba(58, 160, 255, 0.1);
+  box-shadow: 0 0 16px rgba(58, 160, 255, 0.25);
+  transform: translateY(-1px);
+}
+
+/* User Profile Trigger Button */
+.mh-user-wrapper {
+  position: relative;
+}
+
+.mh-user-btn {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  padding: 0.35rem 0.75rem 0.35rem 0.4rem;
+  border-radius: 999px;
+  border: 1px solid var(--stroke);
+  background: rgba(255, 255, 255, 0.03);
+  color: var(--text);
+  cursor: pointer;
+  transition: var(--transition);
+}
+
+.mh-user-btn:hover,
+.mh-user-btn.active {
+  border-color: var(--stroke-hover);
+  background: rgba(255, 255, 255, 0.07);
+}
+
+.mh-user-btn .chevron {
+  font-size: 0.7rem;
+  color: var(--muted);
+  transition: transform 0.2s ease;
+}
+
+.mh-user-btn .chevron.up {
+  transform: rotate(180deg);
+}
+
+.avatar {
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, var(--brand), var(--brand-2, #1e40af));
+  display: grid;
+  place-items: center;
+  font-weight: 700;
+  font-size: 0.85rem;
+  color: #ffffff;
+  box-shadow: 0 0 10px var(--brand-glow, rgba(58, 160, 255, 0.3));
+}
+
+.u-name {
+  font-size: 0.88rem;
+  font-weight: 600;
+  color: var(--text);
+}
+
+/* Dropdown Menu Header & Dividers */
+.dropdown-header {
+  padding: 0.6rem 0.85rem;
+}
+
+.dropdown-header .user-title {
+  font-weight: 600;
+  font-size: 0.9rem;
+  color: var(--text);
+  margin: 0 0 0.2rem 0;
+}
+
+.dropdown-header .role-tag {
+  font-size: 0.7rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  color: var(--brand);
+}
+
+.dropdown-divider {
+  height: 1px;
+  background: var(--stroke);
+  margin: 0.35rem 0;
+}
+
+/* Dropdown Container */
+.dropdown {
+  position: absolute;
+  right: 0;
+  top: calc(100% + 8px);
+  background: rgba(14, 21, 38, 0.95);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid var(--stroke);
+  border-radius: 12px;
+  padding: 0.5rem;
+  width: 220px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+  opacity: 0;
+  transform: translateY(-8px) scale(0.97);
+  pointer-events: none;
+  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+  z-index: 100;
+}
+
+.dropdown.open {
+  opacity: 1;
+  transform: translateY(0) scale(1);
+  pointer-events: auto;
+}
+
+.dropdown a,
+.dropdown .logout-btn {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  width: 100%;
+  text-align: left;
+  background: transparent;
+  color: var(--muted);
+  font-size: 0.88rem;
+  font-weight: 500;
+  padding: 0.55rem 0.85rem;
+  border-radius: 8px;
+  border: 0;
+  cursor: pointer;
+  text-decoration: none;
+  transition: var(--transition);
+  box-sizing: border-box;
+}
+
+.dropdown a:hover,
+.dropdown .logout-btn:hover {
+  color: var(--text);
+  background: rgba(255, 255, 255, 0.06);
+}
+
+.dropdown .logout-btn {
+  color: var(--danger, #ef4444);
+}
+
+.dropdown .logout-btn:hover {
+  background: rgba(239, 68, 68, 0.1);
+  color: #fca5a5;
+}
+
+/* Mobile Hamburger Menu Toggle */
+.mh-burger {
+  display: none;
+  margin-left: 0.5rem;
+  width: 38px;
+  height: 38px;
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid var(--stroke);
+  border-radius: 8px;
+  cursor: pointer;
+  transition: var(--transition);
+}
+
+.mh-burger:hover {
+  border-color: var(--stroke-hover);
+}
+
+.mh-burger span {
+  display: block;
+  height: 2px;
+  background: var(--text);
+  margin: 5px 7px;
+  border-radius: 2px;
+  transition: var(--transition);
+}
+
+/* Mobile Responsiveness */
+@media (max-width: 980px) {
+  .mh-links {
+    position: absolute;
+    left: 1rem;
+    right: 1rem;
+    top: 65px;
+    transform: translateY(-12px);
+    opacity: 0;
+    pointer-events: none;
+    background: rgba(14, 21, 38, 0.95);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border: 1px solid var(--stroke);
+    border-radius: 14px;
+    padding: 0.85rem;
+    display: grid;
+    gap: 0.35rem;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+    transition: all 0.2s ease;
+  }
+
+  body.nav-open .mh-links {
+    opacity: 1;
+    transform: translateY(0);
+    pointer-events: auto;
+  }
+
+  .mh-burger {
+    display: block;
+  }
+}

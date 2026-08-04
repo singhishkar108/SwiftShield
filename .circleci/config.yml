@@ -1,0 +1,166 @@
+# version: 2.1
+
+# executors:
+#   node_with_mongo:
+#     docker:
+#       - image: cimg/node:20.11
+#       - image: mongo:7.0
+#     working_directory: ~/project
+
+#   node_exec:
+#     docker:
+#       - image: cimg/node:20.11
+#     working_directory: ~/project
+
+# jobs:
+#   build_test:
+#     executor: node_with_mongo
+#     environment:
+#       NODE_ENV: test
+#       NODE_OPTIONS: --experimental-vm-modules
+#       CI: "true"
+#       # --- Backend env (matching .env schema) ---
+#       PORT: "4000"
+#       CORS_ORIGIN: https://localhost:5173
+#       PWD_PEPPER: b36d74c0f72c1dcc0dce9e9bdf4b97df710b7c539eb9a7898efa84b9fe11a87a
+#       JWT_SECRET: 89352eb976173ba44a22961256d29fa3fc3ece7e75a4f1e4166f836b07695a85
+#       DATA_KEY: 63a9e270b170ffadc5a291ae18a87cc67bfec420b6b7c4423059667f52f63135
+#       MONGO_URI: mongodb://127.0.0.1:27017/testdb
+#       SEND_EMAILS: "false"
+#       SMTP_HOST: smtp.ethereal.email
+#       SMTP_PORT: "587"
+#       SMTP_USER: ci@example.com
+#       SMTP_PASS: dummy-password
+#       EMAIL_FROM: ci@example.com
+#       ACCESS_TOKEN_TTL_MIN: "15"
+#       REFRESH_TOKEN_TTL_DAYS: "7"
+#       USE_HTTPS: "true"
+#     steps:
+#       - checkout
+
+#       - run:
+#           name: Install netcat for port checks
+#           command: |
+#             sudo apt-get update
+#             sudo apt-get install -y netcat-openbsd
+
+#       - run:
+#           name: Wait for Mongo (max 120s)
+#           command: |
+#             for i in $(seq 1 60); do
+#               if nc -z 127.0.0.1 27017; then
+#                 echo "Mongo is up ✔"; break
+#               fi
+#               echo "Waiting for Mongo... ($i/60)"
+#               sleep 2
+#             done
+
+#       # --- Backend ---
+#       - run:
+#           name: Install deps (backend)
+#           command: |
+#             cd PaymentPortal/backend
+#             if [ -f package-lock.json ]; then npm ci; else npm install; fi
+
+#       - run:
+#           name: Lint backend (non-blocking)
+#           command: |
+#             cd PaymentPortal/backend
+#             npm run lint || true
+
+#       - run:
+#           name: Jest coverage (backend)
+#           command: |
+#             cd PaymentPortal/backend
+#             npm test --runInBand --coverage --coverageReporters=lcov
+
+#       # --- Frontend ---
+#       - run:
+#           name: Install deps (frontend)
+#           command: |
+#             cd PaymentPortal/frontend
+#             if [ -f package-lock.json ]; then npm ci; else npm install; fi
+
+#       - run:
+#           name: Jest coverage (frontend)
+#           command: |
+#             cd PaymentPortal/frontend
+#             npm test --runInBand --coverage --coverageReporters=lcov
+
+#       # --- Coverage fallback ---
+#       - run:
+#           name: Ensure coverage exists for Sonar
+#           command: |
+#             set -euxo pipefail
+#             COV_DIR_B="PaymentPortal/backend/coverage"
+#             COV_DIR_F="PaymentPortal/frontend/coverage"
+#             mkdir -p "$COV_DIR_B" "$COV_DIR_F"
+#             [ -f "$COV_DIR_B/lcov.info" ] || echo "TN:" > "$COV_DIR_B/lcov.info"
+#             [ -f "$COV_DIR_F/lcov.info" ] || echo "TN:" > "$COV_DIR_F/lcov.info"
+#             ls -lah "$COV_DIR_B" "$COV_DIR_F" || true
+
+#       - persist_to_workspace:
+#           root: .
+#           paths:
+#             - PaymentPortal
+
+#   sonar_scan_official:
+#     executor: node_exec
+#     environment:
+#       SONAR_HOST_URL: https://sonarcloud.io
+#     steps:
+#       - checkout
+#       - attach_workspace:
+#           at: .
+
+#       - setup_remote_docker:
+#           docker_layer_caching: false
+
+#       - run:
+#           name: Prepare source volume for remote Docker
+#           command: |
+#             set -euxo pipefail
+#             docker rm -f srcvol || true
+#             docker create -v /src --name srcvol alpine:3.20 /bin/true
+#             docker cp PaymentPortal/. srcvol:/src
+
+#       - run:
+#           name: SonarCloud scan (remote Docker safe)
+#           command: |
+#             set -euxo pipefail
+
+#             TESTS_PROP=""
+#             docker run --rm --volumes-from srcvol alpine:3.20 sh -lc '
+#               [ -d /src/backend/tests ] && echo backend/tests || true
+#             ' > /tmp/btests || true
+#             docker run --rm --volumes-from srcvol alpine:3.20 sh -lc '
+#               [ -d /src/frontend/tests ] && echo frontend/tests || true
+#             ' > /tmp/ftests || true
+
+#             if [ -s /tmp/btests ] || [ -s /tmp/ftests ]; then
+#               TESTS_PROP="-Dsonar.tests=$(paste -sd, /tmp/btests /tmp/ftests | sed "s/^,//;s/,$//")"
+#             fi
+
+#             docker run --rm \
+#               --volumes-from srcvol \
+#               -e SONAR_HOST_URL="${SONAR_HOST_URL}" \
+#               -e SONAR_TOKEN="${SONAR_TOKEN}" \
+#               sonarsource/sonar-scanner-cli \
+#               -Dsonar.organization="your_organization_key_here" \
+#               -Dsonar.projectKey="your_project_key_here" \
+#               -Dsonar.projectName="Payment Portal" \
+#               -Dsonar.sourceEncoding="UTF-8" \
+#               -Dsonar.projectBaseDir="/src" \
+#               -Dsonar.sources="backend/src,frontend/src" \
+#               -Dsonar.test.inclusions="**/*.{test,spec}.{js,jsx,ts,tsx}" \
+#               -Dsonar.exclusions="**/node_modules/**,**/dist/**,**/build/**,**/bin/**,**/obj/**" \
+#               -Dsonar.javascript.lcov.reportPaths="backend/coverage/lcov.info,frontend/coverage/lcov.info" \
+#               ${TESTS_PROP:+$TESTS_PROP}
+
+# workflows:
+#   build_pipeline:
+#     jobs:
+#       - build_test
+#       - sonar_scan_official:
+#           requires:
+#             - build_test

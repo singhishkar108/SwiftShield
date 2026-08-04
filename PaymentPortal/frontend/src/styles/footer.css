@@ -1,0 +1,152 @@
+/* ==========================================================================
+   SwiftShield / High-Tech Banking Footer Styles
+   ========================================================================== */
+
+.mh-footer {
+  border-top: 1px solid var(--stroke);
+  background: linear-gradient(180deg, rgba(14, 21, 38, 0.4) 0%, rgba(7, 10, 18, 0.85) 100%);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  position: relative;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+
+/* Subtle top glow accent */
+.mh-footer::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 20%;
+  right: 20%;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, var(--brand), transparent);
+  opacity: 0.35;
+}
+
+.mh-footer-inner {
+  max-width: 1280px;
+  margin: 0 auto;
+  width: 100%;
+  padding: 2.5rem 1.5rem 1rem 1.5rem;
+  display: grid;
+  grid-template-columns: 2fr repeat(3, 1fr);
+  gap: 1.5rem;
+  box-sizing: border-box;
+}
+
+.mh-footer h4 {
+  margin: 0 0 0.5rem 0;
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: var(--text);
+  letter-spacing: -0.01em;
+}
+
+.mh-footer h5 {
+  margin: 0.25rem 0 0.85rem 0;
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--brand);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.mh-footer p {
+  color: var(--muted);
+  font-size: 0.88rem;
+  line-height: 1.55;
+  margin: 0.5rem 0 0 0;
+  max-width: 380px;
+}
+
+.mh-footer a {
+  display: block;
+  padding: 0.35rem 0;
+  font-size: 0.88rem;
+  color: var(--muted);
+  transition: var(--transition);
+}
+
+.mh-footer a:hover {
+  color: var(--brand);
+  transform: translateX(2px);
+}
+
+/* --- Full-Width Centered Disclaimer Banner (No Borders) --- */
+/* --- Full-Width Disclaimer Banner (Aligned to Left Margin) --- */
+.mh-footer-disclaimer-banner {
+  width: 100%;
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 0.5rem 1.5rem 1.25rem;
+  box-sizing: border-box;
+  text-align: left;
+}
+
+.mh-footer-disclaimer-banner p {
+  margin: 0 !important;
+  padding: 0 !important;
+  font-size: 0.82rem;
+  line-height: 1.6;
+  color: var(--muted);
+  max-width: 100% !important; /* Spans full content width */
+  text-align: left !important;
+}
+
+/* Bottom Bar & Security Badges (No Border) */
+.mh-footer-bar {
+  border-top: none !important; /* Removes bottom line */
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  max-width: 1280px;
+  width: 100%;
+  margin: 0 auto;
+  padding: 0.75rem 1.5rem 1.5rem;
+  color: var(--muted);
+  font-size: 0.85rem;
+  box-sizing: border-box;
+}
+
+.badges {
+  display: flex;
+  align-items: center;
+  gap: 0.85rem;
+  opacity: 0.9;
+  font-size: 0.8rem;
+  font-weight: 500;
+}
+
+.badges span {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  padding: 0.3rem 0.65rem;
+  border-radius: 6px;
+  border: 1px solid var(--stroke);
+  background: rgba(255, 255, 255, 0.02);
+  color: var(--text-dim);
+}
+
+/* Responsive Overrides */
+@media (max-width: 860px) {
+  .mh-footer-inner {
+    grid-template-columns: 1fr 1fr;
+    gap: 1.8rem;
+  }
+
+  .mh-footer-bar {
+    flex-direction: column;
+    gap: 0.85rem;
+    text-align: center;
+  }
+}
+
+@media (max-width: 480px) {
+  .mh-footer-inner {
+    grid-template-columns: 1fr;
+  }
+}

@@ -1,0 +1,466 @@
+/* ==========================================================================
+   SwiftShield / Payment Portal - Payments Form & Visual FX Styles
+   ========================================================================== */
+
+/* Hero Container Layout */
+.pay-hero {
+  position: relative;
+  overflow: clip;
+  min-height: calc(100vh - 120px);
+}
+
+.pay-hero.ready .fade-up {
+  animation: fadeUp 0.6s ease both;
+}
+
+@keyframes fadeUp {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.pay-wrap {
+  max-width: min(980px, 94vw);
+  margin: 40px auto;
+}
+
+.pay-wrap header h2 {
+  margin: 0.1rem 0 0.3rem;
+  font-size: clamp(1.6rem, 3vw, 2.2rem);
+}
+
+.subtitle {
+  color: var(--muted);
+}
+
+/* Background Animated Orbs & Particles Layer */
+.pay-bg {
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+}
+
+.orb {
+  position: absolute;
+  width: 42vmin;
+  height: 42vmin;
+  border-radius: 50%;
+  filter: blur(34px);
+  opacity: 0.38;
+  background: radial-gradient(circle at 30% 30%, rgba(58, 160, 255, 0.85), transparent 60%);
+  will-change: transform;
+  animation: float 14s ease-in-out infinite;
+}
+
+.orb-b {
+  left: 70%;
+  top: 10%;
+  width: 50vmin;
+  height: 50vmin;
+  opacity: 0.32;
+  background: radial-gradient(circle at 70% 40%, rgba(123, 92, 255, 0.85), transparent 60%);
+  animation-duration: 18s;
+  animation-delay: 0.12s;
+}
+
+.orb-c {
+  left: 10%;
+  top: 64%;
+  width: 36vmin;
+  height: 36vmin;
+  opacity: 0.26;
+  background: radial-gradient(circle at 40% 60%, rgba(58, 160, 255, 0.6), transparent 60%);
+  animation-duration: 20s;
+  animation-delay: 0.22s;
+}
+
+@keyframes float {
+  0%, 100% {
+    transform: translateY(0) translateX(0);
+  }
+  50% {
+    transform: translateY(-14px) translateX(8px);
+  }
+}
+
+.particles {
+  position: absolute;
+  inset: 0;
+}
+
+.particles span {
+  --x: calc((var(--i) * 37) % 100);
+  --y: calc((var(--i) * 71) % 100);
+  position: absolute;
+  left: calc(var(--x) * 1%);
+  top: calc(var(--y) * 1%);
+  width: 2px;
+  height: 2px;
+  border-radius: 2px;
+  background: rgba(255, 255, 255, 0.83);
+  opacity: 0.25;
+  filter: drop-shadow(0 0 6px rgba(255, 255, 255, 0.45));
+  will-change: transform, opacity;
+  animation: twinkle 4.5s ease-in-out infinite;
+  animation-delay: calc(var(--i) * 0.12s);
+}
+
+@keyframes twinkle {
+  0%, 100% {
+    transform: scale(0.9);
+    opacity: 0.15;
+  }
+  50% {
+    transform: scale(1.35);
+    opacity: 0.55;
+  }
+}
+
+/* Background Running Marquee / FX Ribbon */
+.fx-ribbon {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 12%;
+  opacity: 0.5;
+  filter: blur(0.3px);
+}
+
+.ribbon-track {
+  display: flex;
+  gap: 32px;
+  white-space: nowrap;
+  overflow: hidden;
+  padding: 4px 0;
+  will-change: transform;
+  animation: ribbon 22s linear infinite;
+  font-weight: 700;
+  letter-spacing: 0.6px;
+  color: #e9f3ff;
+  text-shadow: 0 0 10px rgba(58, 160, 255, 0.25);
+}
+
+.ribbon-track > span {
+  padding-left: 32px;
+}
+
+@keyframes ribbon {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+/* Main Form Interactive Card Layer */
+.pay-card {
+  position: relative;
+  margin: 1.2rem auto 2rem;
+  padding: 1.1rem 1.1rem 1.3rem;
+  border-radius: var(--radius);
+  border: 1px solid var(--stroke);
+  box-shadow: var(--shadow);
+  transform: perspective(900px) rotateX(var(--rx, 0deg)) rotateY(var(--ry, 0deg)) translate3d(var(--tx, 0), var(--ty, 0), 0);
+  transition: transform 0.15s ease-out;
+  isolation: isolate;
+}
+
+.card-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 0.4rem;
+}
+
+.card-head h3 {
+  margin: 0;
+}
+
+/* Grid Layouts & Fields */
+.grid-2 {
+  display: grid;
+  gap: 12px;
+  grid-template-columns: 1fr 1fr;
+}
+
+.f-row {
+  display: flex;
+  flex-direction: column;
+  gap: 0.45rem;
+  margin-bottom: 0.9rem;
+}
+
+.f-row label {
+  font-weight: 600;
+}
+
+.field {
+  position: relative;
+}
+
+.field input,
+.field select {
+  width: 100%;
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid var(--stroke);
+  border-radius: 12px;
+  padding: 0.9rem 1rem;
+  color: var(--text);
+  outline: none;
+  transition: border-color 0.18s ease, background 0.18s ease, box-shadow 0.18s ease;
+}
+
+.field select {
+  appearance: none;
+  background-image: linear-gradient(180deg, transparent, transparent);
+}
+
+.field.ro input {
+  background: rgba(255, 255, 255, 0.03);
+  cursor: not-allowed;
+}
+
+.field:focus-within input,
+.field:focus-within select {
+  border-color: rgba(58, 160, 255, 0.65);
+  background: rgba(58, 160, 255, 0.06);
+  box-shadow: 0 0 0 3px rgba(58, 160, 255, 0.18);
+}
+
+.focus-underline {
+  pointer-events: none;
+  position: absolute;
+  left: 12px;
+  right: 12px;
+  bottom: 8px;
+  height: 2px;
+  background: linear-gradient(90deg, var(--brand), var(--brand-2));
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 0.25s ease;
+  opacity: 0.9;
+  border-radius: 2px;
+}
+
+.field:focus-within .focus-underline {
+  transform: scaleX(1);
+}
+
+.micro-hint {
+  font-size: 0.88rem;
+  color: var(--muted);
+}
+
+/* Beneficiaries Carousel Selector */
+.bene-wrap {
+  margin: 0.4rem 0 0.6rem;
+}
+
+.carousel.one {
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  padding-bottom: 0.4rem;
+}
+
+.carousel.one .rail {
+  display: flex;
+  gap: 12px;
+}
+
+.bene.full {
+  flex: 0 0 100%;
+  max-width: 720px;
+  margin: 0 auto;
+  scroll-snap-align: start;
+  border: 1px solid var(--stroke);
+  border-radius: 14px;
+  padding: 12px;
+  background: rgba(255, 255, 255, 0.02);
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+  transition: transform 0.15s ease, border-color 0.15s ease, background 0.15s ease, box-shadow 0.2s ease;
+}
+
+.bene.full:hover {
+  transform: translateY(-2px);
+  border-color: rgba(123, 92, 255, 0.35);
+  background: rgba(255, 255, 255, 0.04);
+  box-shadow: 0 16px 36px rgba(123, 92, 255, 0.14);
+}
+
+.bene-row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.avatar {
+  width: 36px;
+  height: 36px;
+  border-radius: 10px;
+  display: grid;
+  place-items: center;
+  background: linear-gradient(180deg, rgba(123, 92, 255, 0.55), rgba(58, 160, 255, 0.4));
+  font-weight: 700;
+}
+
+.bene-name {
+  font-weight: 700;
+}
+
+.bene-sub {
+  color: var(--muted);
+}
+
+.bene-swift {
+  font-size: 0.95rem;
+}
+
+.btn.small {
+  padding: 0.42rem 0.64rem;
+  font-size: 0.92rem;
+}
+
+/* Save Switch Toggle Component */
+.save-row {
+  display: flex;
+  justify-content: flex-start;
+  margin: 0.3rem 0 0.6rem;
+}
+
+.save-toggle {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6rem;
+  cursor: pointer;
+  user-select: none;
+}
+
+.save-toggle input {
+  display: none;
+}
+
+.save-toggle .slider {
+  width: 42px;
+  height: 24px;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.1);
+  border: 1px solid var(--stroke);
+  display: inline-block;
+  position: relative;
+  transition: background 0.2s ease;
+}
+
+.save-toggle .slider::after {
+  content: "";
+  position: absolute;
+  top: 2px;
+  left: 2px;
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  background: #ffffff;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.25);
+  transition: transform 0.2s ease;
+}
+
+.save-toggle input:checked + .slider {
+  background: linear-gradient(90deg, rgba(58, 160, 255, 0.6), rgba(123, 92, 255, 0.6));
+}
+
+.save-toggle input:checked + .slider::after {
+  transform: translateX(18px);
+}
+
+.save-toggle .lbl {
+  color: var(--muted);
+}
+
+/* Custom Captcha Box Styling */
+.captcha-wrap {
+  margin: 0.6rem 0 1rem;
+  padding: 0.8rem 0.9rem;
+  border-radius: 12px;
+  border: 1px solid var(--stroke);
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.05), rgba(255, 255, 255, 0.025));
+}
+
+.captcha-label {
+  display: block;
+  font-weight: 600;
+  margin-bottom: 0.45rem;
+}
+
+.captcha-inner {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+
+.captcha-note {
+  color: var(--muted);
+  font-size: 0.9rem;
+}
+
+/* Call to Action Primary Submit Button */
+.pay-submit {
+  width: 100%;
+  margin-top: 0.2rem;
+  box-shadow:
+    0 10px 24px rgba(58, 160, 255, 0.2),
+    inset 0 0 0 1px rgba(255, 255, 255, 0.06);
+  transition: transform 0.15s ease-out, box-shadow 0.2s ease;
+}
+
+.pay-submit:hover {
+  transform: translateY(-1px);
+  box-shadow:
+    0 16px 36px rgba(123, 92, 255, 0.28),
+    inset 0 0 0 1px rgba(255, 255, 255, 0.08);
+}
+
+/* Form Error Bubble Notification */
+.f-error {
+  border: 1px solid rgba(255, 107, 107, 0.33);
+  background: rgba(255, 107, 107, 0.1);
+  color: #ffbcbc;
+  padding: 0.7rem 0.8rem;
+  border-radius: 10px;
+  margin: 0.8rem 0 1rem;
+}
+
+/* Shimmer Typography Helper Effect */
+.shimmer-text {
+  background: linear-gradient(90deg, #ffffff, #cfe4ff, #ffffff);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  background-size: 300% 100%;
+  will-change: background-position;
+  animation: shimmerText 5s linear infinite;
+}
+
+@keyframes shimmerText {
+  0% {
+    background-position: 0 0;
+  }
+  100% {
+    background-position: 300% 0;
+  }
+}
+
+/* Responsive Media Queries */
+@media (max-width: 780px) {
+  .grid-2 {
+    grid-template-columns: 1fr;
+  }
+}

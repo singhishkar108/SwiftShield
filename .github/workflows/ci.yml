@@ -1,0 +1,121 @@
+# name: DevSecOps CI (Backend • Frontend • Security)
+
+# on:
+#   push:
+#     branches: [main, dev, develop, "**/*"]
+#   pull_request:
+
+# permissions:
+#   contents: read
+
+# env:
+#   BASE_DIR: PaymentPortal
+
+# jobs:
+#   backend:
+#     name: Backend
+#     runs-on: ubuntu-latest
+#     defaults:
+#       run:
+#         working-directory: ${{ env.BASE_DIR }}/backend
+#     steps:
+#       - uses: actions/checkout@v4
+
+#       - uses: actions/setup-node@v4
+#         with:
+#           node-version: 20
+#           cache: npm
+#           cache-dependency-path: ${{ env.BASE_DIR }}/backend/package-lock.json
+
+#       - name: Install
+#         run: |
+#           if [ -f package-lock.json ]; then
+#             npm ci
+#           else
+#             npm install
+#           fi
+
+#       - name: Lint (non-blocking)
+#         run: npm run lint || true
+#         continue-on-error: true
+
+#       - name: Test
+#         env:
+#           NODE_ENV: test
+#           NODE_OPTIONS: --experimental-vm-modules
+#           PORT: 4000
+#           MONGO_URI: mongodb://127.0.0.1:27017/testdb
+#           CORS_ORIGIN: https://localhost:5173
+#           PWD_PEPPER: b36d74c0f72c1dcc0dce9e9bdf4b97df710b7c539eb9a7898efa84b9fe11a87a
+#           JWT_SECRET: 89352eb976173ba44a22961256d29fa3fc3ece7e75a4f1e4166f836b07695a85
+#           DATA_KEY: 63a9e270b170ffadc5a291ae18a87cc67bfec420b6b7c4423059667f52f63135
+#           SMTP_HOST: smtp.ethereal.email
+#           SMTP_PORT: "587"
+#           SMTP_USER: dummy_user
+#           SMTP_PASS: dummy_pass
+#           EMAIL_FROM: ci@example.com
+#           ACCESS_TOKEN_TTL_MIN: "15"
+#           REFRESH_TOKEN_TTL_DAYS: "7"
+#           USE_HTTPS: "true"
+#         run: npm test --runInBand
+
+#       - name: Security audit (non-blocking)
+#         run: npm audit --audit-level=moderate --omit=dev || true
+
+#       - name: Build (if any)
+#         run: npm run build --if-present
+
+#   frontend:
+#     name: Frontend
+#     runs-on: ubuntu-latest
+#     defaults:
+#       run:
+#         working-directory: ${{ env.BASE_DIR }}/frontend
+#     steps:
+#       - uses: actions/checkout@v4
+
+#       - uses: actions/setup-node@v4
+#         with:
+#           node-version: 20
+#           cache: npm
+#           cache-dependency-path: ${{ env.BASE_DIR }}/frontend/package-lock.json
+
+#       - name: Install
+#         run: |
+#           if [ -f package-lock.json ]; then
+#             npm ci
+#           else
+#             npm install
+#           fi
+
+#       - name: Lint (non-blocking)
+#         run: npm run lint || true
+#         continue-on-error: true
+
+#       - name: Typecheck (if present)
+#         run: npm run typecheck --if-present
+
+#       - name: Build
+#         env:
+#           VITE_API_BASE: https://localhost:4000
+#           VITE_RECAPTCHA_SITE_KEY: dummy
+#           VITE_USE_HTTPS: "true"
+#         run: |
+#           if [ -f tsconfig.json ]; then
+#             npm run build --if-present
+#           else
+#             npx vite build
+#           fi
+
+#   secret-scan:
+#     name: Secret Scan (Gitleaks)
+#     runs-on: ubuntu-latest
+#     steps:
+#       - uses: actions/checkout@v4
+#         with:
+#           fetch-depth: 0
+#       - name: Run Gitleaks (non-blocking)
+#         uses: gitleaks/gitleaks-action@v2
+#         continue-on-error: true
+#         with:
+#           args: detect --redact --report-format sarif --report-path gitleaks.sarif

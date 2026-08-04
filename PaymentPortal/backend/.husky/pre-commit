@@ -1,0 +1,12 @@
+#!/usr/bin/env sh
+
+# Load Husky Git hook helper.
+. "$(dirname -- "$0")/_/husky.sh"
+
+# Run backend linting before allowing the commit.
+echo "🧹 Linting backend…"
+npm run lint || exit 1
+
+# Run the test suite with the required Node.js VM option.
+echo "🧪 Running tests…"
+NODE_OPTIONS=--experimental-vm-modules npm test || exit 1

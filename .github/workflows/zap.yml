@@ -1,0 +1,64 @@
+# name: ZAP Baseline
+
+# on:
+#   workflow_dispatch:
+#   schedule:
+#     - cron: "0 3 * * 1"   # weekly Monday 03:00 UTC
+
+# jobs:
+#   zap:
+#     runs-on: ubuntu-latest
+#     steps:
+#       - uses: actions/checkout@v4
+
+#       - name: Setup Node
+#         uses: actions/setup-node@v4
+#         with:
+#           node-version: '20'
+
+#       - name: Install backend
+#         working-directory: backend
+#         run: npm ci
+
+#       # Start backend HTTPS on 4001; accept self-signed
+#       - name: Start backend (HTTPS)
+#         working-directory: backend
+#         env:
+#           NODE_ENV: production
+#           PORT: 4000
+#           HTTPS_PORT: 4001
+#           CORS_ORIGIN: https://localhost:5173
+#           MONGO_URI: mongodb://127.0.0.1:27017/devzap   # ZAP run doesn’t need live DB; use local
+#           JWT_SECRET: dev_secret_dev_only
+#           PWD_PEPPER: dev_pepper_dev_only_please_change
+#           DATA_KEY: 1111111111111111111111111111111111111111111111111111111111111111
+#           RECAPTCHA_SECRET: dev
+#         run: |
+#           # In CI runner, no certs exist—create quick self-signed ones for ZAP run
+#           mkdir -p ssl
+#           openssl req -x509 -nodes -days 1 -newkey rsa:2048 \
+#             -keyout ssl/privatekey.pem -out ssl/certificate.pem \
+#             -subj "/CN=localhost"
+#           nohup npm start >/tmp/backend.log 2>&1 &
+
+#       - name: Wait for API
+#         run: |
+#           echo "Waiting for https://localhost:4001/health"
+#           for i in {1..60}; do
+#             curl -sk https://localhost:4001/health && exit 0
+#             sleep 2
+#           done
+#           echo "::error::API did not start in time"
+#           cat /tmp/backend.log || true
+#           exit 1
+
+#       - name: ZAP Baseline Scan
+#         uses: zaproxy/action-baseline@v0.12.0
+#         with:
+#           target: 'https://localhost:4001/'
+#           # Accept self-signed & go light so CI is fast
+#           cmd_options: >-
+#             -a
+#             -m 1
+#             -d
+#             -z "-config connection.ssl.acceptAll=true"

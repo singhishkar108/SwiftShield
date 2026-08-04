@@ -1,0 +1,289 @@
+/* ==========================================================================
+   SwiftShield / Staff SWIFT Verification Command Center - Styles
+   ========================================================================== */
+
+:root {
+  --mz-primary: #3aa0ff;         /* Electric Cyber Blue */
+  --mz-accent: #7b5cff;          /* High-Tech Violet Glow */
+  --mz-bg: #070a12;             /* Obsidian background */
+  --mz-card: rgba(14, 21, 38, 0.65); /* Translucent glass card */
+  --mz-text: #f1f5f9;            /* Crisp white text */
+  --mz-muted: #94a3b8;           /* Slate muted text */
+  --stroke: rgba(255, 255, 255, 0.08);
+  --stroke-focus: rgba(58, 160, 255, 0.4);
+  --radius: 16px;
+  --shadow: 0 16px 40px -10px rgba(0, 0, 0, 0.6), 0 0 1px 1px var(--stroke);
+}
+
+.mz-wrap {
+  position: relative;
+  max-width: 1040px;
+  margin: 0 auto;
+  padding: clamp(20px, 3.5vw, 36px);
+  color: var(--mz-text);
+}
+
+/* Glassmorphic Command Cards */
+.mz-card {
+  background: var(--mz-card);
+  border: 1px solid var(--stroke);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+  padding: 22px 26px;
+  margin-bottom: 1.5rem;
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.25s ease, box-shadow 0.25s ease;
+}
+
+.mz-card:hover {
+  transform: translateY(-2px);
+  border-color: rgba(255, 255, 255, 0.18);
+  box-shadow: 0 20px 45px -10px rgba(0, 0, 0, 0.7), 0 0 20px rgba(58, 160, 255, 0.1);
+}
+
+h3 {
+  margin: 0 0 12px 0;
+  font-size: 1.3rem;
+  font-weight: 700;
+  letter-spacing: -0.01em;
+  color: #ffffff;
+}
+
+h4 {
+  margin: 0 0 10px 0;
+  font-size: 1.05rem;
+  font-weight: 600;
+  color: var(--mz-primary);
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+
+/* Payment Metadata Grid */
+.grid2 {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 14px;
+}
+
+.grid2 > div {
+  padding: 12px 16px;
+  border: 1px solid var(--stroke);
+  border-radius: 12px;
+  background: rgba(255, 255, 255, 0.02);
+  transition: background 0.2s ease, border-color 0.2s ease;
+}
+
+.grid2 > div:hover {
+  background: rgba(255, 255, 255, 0.04);
+  border-color: rgba(255, 255, 255, 0.14);
+}
+
+.grid2 b {
+  display: block;
+  color: var(--mz-muted);
+  font-size: 0.82rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  margin-bottom: 6px;
+  font-weight: 600;
+}
+
+.mt {
+  margin-top: 18px;
+}
+
+/* Action Controls */
+.actions {
+  display: flex;
+  gap: 12px;
+  margin-top: 18px;
+  flex-wrap: wrap;
+}
+
+.btn {
+  border: 1px solid var(--stroke);
+  background: rgba(255, 255, 255, 0.04);
+  color: var(--mz-text);
+  padding: 10px 20px;
+  border-radius: 10px;
+  font-weight: 600;
+  font-size: 0.92rem;
+  cursor: pointer;
+  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.btn:hover {
+  transform: translateY(-1px);
+  border-color: var(--stroke-focus);
+  background: rgba(255, 255, 255, 0.08);
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+}
+
+.btn:active {
+  transform: scale(0.98);
+}
+
+.btn-primary {
+  background: linear-gradient(135deg, var(--mz-primary), var(--mz-accent));
+  color: #ffffff;
+  border-color: transparent;
+  font-weight: 700;
+  box-shadow: 0 4px 20px rgba(58, 160, 255, 0.3);
+}
+
+.btn-primary:hover {
+  opacity: 0.95;
+  box-shadow: 0 6px 25px rgba(58, 160, 255, 0.45);
+}
+
+.btn.ghost {
+  background: transparent;
+  border-color: transparent;
+  color: var(--mz-muted);
+}
+
+.btn.ghost:hover {
+  color: var(--mz-text);
+  background: rgba(255, 255, 255, 0.05);
+}
+
+/* Status Badges & Chips */
+.chip {
+  display: inline-flex;
+  align-items: center;
+  border-radius: 999px;
+  font-size: 0.82rem;
+  font-weight: 600;
+  padding: 0.3rem 0.85rem;
+  border: 1px solid var(--stroke);
+  background: rgba(255, 255, 255, 0.04);
+  letter-spacing: 0.02em;
+}
+
+.chip-created {
+  color: #94a3b8;
+  background: rgba(148, 163, 184, 0.1);
+  border-color: rgba(148, 163, 184, 0.2);
+}
+
+.chip-pending_auth {
+  color: #fbbf24;
+  background: rgba(251, 191, 36, 0.12);
+  border-color: rgba(251, 191, 36, 0.25);
+  box-shadow: 0 0 10px rgba(251, 191, 36, 0.15);
+}
+
+.chip-sent {
+  color: #60a5fa;
+  background: rgba(96, 165, 250, 0.12);
+  border-color: rgba(96, 165, 250, 0.25);
+}
+
+.chip-verified {
+  color: #c084fc;
+  background: rgba(192, 132, 252, 0.12);
+  border-color: rgba(192, 132, 252, 0.25);
+  box-shadow: 0 0 10px rgba(192, 132, 252, 0.15);
+}
+
+.chip-completed {
+  color: #34d399;
+  background: rgba(52, 211, 153, 0.12);
+  border-color: rgba(52, 211, 153, 0.25);
+  box-shadow: 0 0 12px rgba(52, 211, 153, 0.2);
+}
+
+/* Staff Note Textarea */
+textarea {
+  width: 100%;
+  border-radius: 12px;
+  background: rgba(7, 10, 18, 0.6);
+  border: 1px solid var(--stroke);
+  color: var(--mz-text);
+  padding: 12px 14px;
+  font-family: inherit;
+  font-size: 0.95rem;
+  resize: vertical;
+  transition: all 0.2s ease;
+  box-sizing: border-box;
+}
+
+textarea:focus {
+  outline: none;
+  border-color: var(--mz-primary);
+  box-shadow: 0 0 0 3px rgba(58, 160, 255, 0.25);
+  background: rgba(7, 10, 18, 0.85);
+}
+
+/* Verification Audit Trail */
+.audit {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  gap: 10px;
+}
+
+.audit li {
+  display: grid;
+  grid-template-columns: 200px 1fr 1fr;
+  align-items: center;
+  padding: 10px 14px;
+  border: 1px solid var(--stroke);
+  border-radius: 10px;
+  background: rgba(255, 255, 255, 0.02);
+  color: var(--mz-text);
+  font-size: 0.88rem;
+  transition: border-color 0.2s ease;
+}
+
+.audit li:hover {
+  border-color: rgba(255, 255, 255, 0.14);
+}
+
+.audit li span:first-child {
+  color: var(--mz-muted);
+  font-variant-numeric: tabular-nums;
+  font-family: monospace;
+  font-size: 0.82rem;
+}
+
+/* Error Messages */
+.mz-err {
+  color: #ef4444;
+  background: rgba(239, 68, 68, 0.1);
+  border: 1px solid rgba(239, 68, 68, 0.25);
+  padding: 10px 14px;
+  border-radius: 10px;
+  font-weight: 600;
+  font-size: 0.9rem;
+  margin-top: 14px;
+}
+
+/* Entrance Animations */
+.fadeIn {
+  animation: fadeIn 0.35s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Mobile Responsiveness */
+@media (max-width: 760px) {
+  .grid2 {
+    grid-template-columns: 1fr;
+  }
+  .audit li {
+    grid-template-columns: 1fr;
+    gap: 4px;
+  }
+}

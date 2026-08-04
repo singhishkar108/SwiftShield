@@ -1,0 +1,16 @@
+version: '3.8'
+
+services:
+  sonar-runner-test:
+    # 1. Instructs Compose to BUILD the image using the Dockerfile.sonar file in the current directory
+    build:
+      context: .
+      dockerfile: Dockerfile.sonar
+    
+    # 2. Command to run once the image is built and the container starts
+    # This directly runs the sonar-scanner verification command
+    # This step should now successfully output the version if the Dockerfile changes were correct.
+    command: sonar-scanner --version
+
+    # Set the working directory to match the CI environment
+    working_dir: /home/circleci/project

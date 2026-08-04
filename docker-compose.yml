@@ -1,0 +1,62 @@
+version: "3.9"
+
+services:
+  # 🧩 MongoDB (quiet mode, slower healthcheck)
+  mongo:
+    image: mongo:7.0
+    container_name: insy7314-mongo
+    command: ["mongod", "--bind_ip_all", "--quiet"] # 🔕 suppress verbose logs
+    ports:
+      - "27017:27017"
+    volumes:
+      - mongo_data:/data/db
+    healthcheck:
+      test:
+        [
+          "CMD-SHELL",
+          "mongosh --quiet --eval 'db.adminCommand({ ping: 1 }).ok' || exit 1",
+        ]
+      interval: 30s # ping every 30 seconds instead of 5
+      timeout: 3s
+      retries: 5
+
+  # 🚀 Backend API
+  api:
+    build:
+      context: ./PaymentPortal/backend
+      dockerfile: Dockerfile.dev
+    container_name: insy7314-api-dev
+    depends_on:
+      mongo:
+        condition: service_healthy
+    ports:
+      - "4001:4001"
+    environment:
+      NODE_ENV: development
+      PORT: 4001
+      USE_HTTPS: "false"
+      CORS_ORIGIN: "https://localhost:5173"
+
+      # ✅ Secure dummy values to satisfy your validators
+      PWD_PEPPER: "pepper_dev_secret_123456"
+      JWT_SECRET: "jwt_dev_secret_abcdefghijklmnopqrstuvwxyz_1234567890"
+      DATA_KEY: "a62b387f8738226611b593ce0d3aa9f134a60307c8b9bf6e5c4b4d3d7e0044b8"
+
+      # ✅ Use internal mongo container
+      MONGO_URI: "mongodb://mongo:27017/testdb"
+
+      SMTP_HOST: "smtp.example.com"
+      SMTP_USER: "dev@example.com"
+      SMTP_PASS: "dev123"
+      EMAIL_FROM: "dev@example.com"
+      SEND_EMAILS: "false"
+      ACCESS_TOKEN_TTL_MIN: "15"
+      REFRESH_TOKEN_TTL_DAYS: "7"
+
+    volumes:
+      - ./PaymentPortal/backend:/usr/src/app
+      - /usr/src/app/node_modules
+    command: npm run dev
+
+volumes:
+  mongo_data:

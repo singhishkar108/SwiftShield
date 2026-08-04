@@ -1,0 +1,615 @@
+/* ==========================================================================
+   SwiftShield / Payment Portal - Dashboard Styles
+   ========================================================================== */
+
+/* Main Wrapper & Safety Containment */
+.dash-wrap {
+  max-width: min(1100px, 92vw);
+  margin: 0 auto;
+  overflow-x: hidden;
+}
+
+/* Dashboard Header */
+.dash-header {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 1rem;
+  margin-bottom: 1.2rem;
+}
+
+.dash-header h1 {
+  margin: 0;
+}
+
+.dash-header .btn {
+  align-self: flex-start;
+}
+
+/* KPI Cards Grid */
+.kpi-grid {
+  display: grid;
+  gap: 12px;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  margin-bottom: 10px;
+}
+
+.kpi {
+  position: relative;
+  padding: 14px 14px 10px;
+  border-radius: var(--radius);
+}
+
+.kpi-label {
+  color: var(--muted);
+  font-size: 0.94rem;
+}
+
+.kpi-value {
+  display: flex;
+  align-items: baseline;
+  gap: 0.35rem;
+  font-size: clamp(1.2rem, 2vw, 1.6rem);
+  font-weight: 700;
+  letter-spacing: 0.2px;
+}
+
+.kpi-value .ccy {
+  font-size: 0.92rem;
+  font-weight: 600;
+  color: var(--muted);
+}
+
+/* Sparkline Chart Animations */
+.spark {
+  display: block;
+  margin-top: 0.2rem;
+}
+
+.spark polyline {
+  fill: none;
+  stroke: rgba(123, 92, 255, 0.85);
+  stroke-width: 2;
+  vector-effect: non-scaling-stroke;
+  animation: draw 1.2s ease-out both;
+}
+
+@keyframes draw {
+  from {
+    stroke-dasharray: 1 1;
+    stroke-dashoffset: 0.99;
+    opacity: 0.2;
+  }
+  to {
+    stroke-dasharray: 1 0;
+    stroke-dashoffset: 0;
+    opacity: 1;
+  }
+}
+
+/* FX Ticker Marquee */
+.fx-ticker {
+  position: relative;
+  overflow: hidden;
+  border-radius: 12px;
+  border: 1px solid var(--stroke);
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.05), rgba(255, 255, 255, 0.02));
+  margin: 8px 0 12px;
+}
+
+.fx-track {
+  display: flex;
+  gap: 12px;
+  padding: 8px 10px;
+  will-change: transform;
+  animation: marquee 18s linear infinite;
+}
+
+@keyframes marquee {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+.fx-pill {
+  display: flex;
+  gap: 0.5rem;
+  align-items: center;
+  border: 1px solid var(--stroke);
+  border-radius: 999px;
+  padding: 0.35rem 0.7rem;
+  background: rgba(255, 255, 255, 0.03);
+}
+
+.fx-pill strong {
+  letter-spacing: 0.2px;
+}
+
+/* Two-Column Grid Layout */
+.two-col {
+  display: grid;
+  gap: 12px;
+  grid-template-columns: 2fr 1.4fr;
+}
+
+.card {
+  padding: 12px;
+  border-radius: var(--radius);
+  max-width: 100%;
+}
+
+.card.fancy-glow {
+  overflow: clip;
+}
+
+.card-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 0.6rem;
+}
+
+.card-head h3 {
+  margin: 0;
+}
+
+.link {
+  color: var(--brand);
+  text-decoration: none;
+}
+
+.link:hover {
+  text-decoration: underline;
+}
+
+/* Data Table Grid */
+.table {
+  width: 100%;
+  display: grid;
+  gap: 6px;
+  --cols: minmax(160px, 1.6fr) minmax(180px, 1.8fr) minmax(140px, 1.2fr) minmax(110px, 0.9fr) minmax(190px, 1.4fr);
+}
+
+.tr,
+.tr.th {
+  display: grid;
+  align-items: flex-start;
+  grid-template-columns: var(--cols);
+  gap: 10px;
+  padding: 0.55rem;
+  border: 1px solid var(--stroke);
+  border-radius: 10px;
+  background: rgba(255, 255, 255, 0.02);
+  transition: transform 0.15s ease, background 0.15s ease, border-color 0.15s ease;
+}
+
+.tr:hover {
+  transform: translateY(-1px);
+  background: rgba(255, 255, 255, 0.035);
+  border-color: rgba(123, 92, 255, 0.35);
+}
+
+.tr.th {
+  font-weight: 600;
+  color: var(--muted);
+  background: transparent;
+  border: 1px dashed var(--stroke);
+}
+
+.tr.th:hover {
+  transform: none;
+  border-color: var(--stroke);
+}
+
+.tr.th > div {
+  white-space: nowrap;
+}
+
+.tr .cell {
+  min-width: 0;
+}
+
+.tr .ref,
+.tr .benef {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.tr .amt,
+.tr .status,
+.tr .date {
+  white-space: nowrap;
+}
+
+/* Status Chips & Badges */
+.chip {
+  padding: 0.2rem 0.5rem;
+  border-radius: 999px;
+  font-weight: 600;
+  font-size: 0.86rem;
+  border: 1px solid var(--stroke);
+  white-space: nowrap;
+}
+
+.chip.success {
+  color: #7affc3;
+  border-color: #2b6e56;
+  background: rgba(48, 162, 120, 0.12);
+}
+
+.chip.warn {
+  color: #ffe28a;
+  border-color: #6e5a2b;
+  background: rgba(255, 199, 94, 0.12);
+}
+
+.chip.danger {
+  color: #ffbcbc;
+  border-color: #6e2b2b;
+  background: rgba(255, 107, 107, 0.12);
+}
+
+.p-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 6px;
+}
+
+.status {
+  padding: 3px 10px;
+  border-radius: 10px;
+  font-size: 0.8rem;
+  text-transform: capitalize;
+  letter-spacing: 0.3px;
+}
+
+.status.ok {
+  background: rgba(90, 255, 150, 0.15);
+  color: #5aff96;
+}
+
+.status.warn {
+  background: rgba(255, 220, 100, 0.15);
+  color: #ffd45a;
+}
+
+.status.err {
+  background: rgba(255, 100, 100, 0.15);
+  color: #ff6464;
+}
+
+/* Beneficiaries Carousel Layouts */
+.carousel {
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  padding-bottom: 0.5rem;
+}
+
+.rail {
+  display: flex;
+  gap: 10px;
+}
+
+.bene {
+  min-width: 220px;
+  scroll-snap-align: start;
+  border: 1px solid var(--stroke);
+  border-radius: 14px;
+  padding: 10px;
+  background: rgba(255, 255, 255, 0.02);
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+  transition: transform 0.15s ease, border-color 0.15s ease, background 0.15s ease;
+}
+
+.bene:hover {
+  transform: translateY(-2px);
+  border-color: rgba(123, 92, 255, 0.35);
+  background: rgba(255, 255, 255, 0.04);
+}
+
+.avatar {
+  width: 36px;
+  height: 36px;
+  border-radius: 10px;
+  display: grid;
+  place-items: center;
+  background: linear-gradient(180deg, rgba(123, 92, 255, 0.55), rgba(58, 160, 255, 0.4));
+  font-weight: 700;
+}
+
+.bene-name {
+  font-weight: 700;
+}
+
+.bene-sub {
+  color: var(--muted);
+}
+
+.bene-swift {
+  font-size: 0.92rem;
+}
+
+.bene-last {
+  font-size: 0.9rem;
+}
+
+/* Single-Card Carousel Variant */
+.carousel.one {
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+}
+
+.carousel.one .rail {
+  display: flex;
+  gap: 12px;
+  padding-inline: 12px;
+  box-sizing: border-box;
+}
+
+.carousel.one .bene.full {
+  flex: 0 0 calc(100% - 28px);
+  max-width: 640px;
+  margin: 0 auto;
+  scroll-snap-align: start;
+}
+
+/* Quick Actions Grid */
+.quick-actions {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 10px;
+  margin-top: 12px;
+}
+
+.qa {
+  display: grid;
+  place-items: center;
+  text-align: center;
+  border: 1px solid var(--stroke);
+  border-radius: 14px;
+  padding: 18px 10px;
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.05), rgba(255, 255, 255, 0.02));
+  transition: transform 0.15s ease, border-color 0.15s ease, background 0.15s ease, box-shadow 0.2s ease;
+}
+
+.qa:hover {
+  transform: translateY(-2px);
+  background: rgba(255, 255, 255, 0.04);
+  border-color: rgba(123, 92, 255, 0.35);
+  box-shadow: 0 16px 36px rgba(123, 92, 255, 0.18);
+}
+
+/* Integrated Search Fields & Focus Underlines */
+.field {
+  position: relative;
+  display: flex;
+  align-items: center;
+  background: rgba(255, 255, 255, 0.04);
+  border-radius: 10px;
+  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.08);
+  padding: 0;
+  overflow: hidden;
+}
+
+.field input[type="text"],
+.field input[type="search"],
+.field input {
+  border: none !important;
+  outline: none !important;
+  appearance: none;
+  -webkit-appearance: none;
+  background: transparent;
+  width: 100%;
+  color: #fff;
+  font-size: 0.95rem;
+  font-family: inherit;
+  padding: 10px 12px 6px;
+  box-shadow: none !important;
+  z-index: 1;
+}
+
+.field input:focus-visible {
+  outline: none !important;
+  box-shadow: none !important;
+}
+
+.field input::placeholder {
+  color: rgba(255, 255, 255, 0.5);
+  letter-spacing: 0.3px;
+}
+
+.field .focus-underline {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 0%;
+  height: 2px;
+  border-radius: 2px;
+  background: linear-gradient(90deg, #9d6bff, #4fd1ff);
+  transition: width 0.3s ease;
+  z-index: 0;
+}
+
+.field input:focus + .focus-underline {
+  width: 100%;
+}
+
+/* Animations, Utility Classes & Keyboard Hints */
+.hover-lift {
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
+}
+
+.hover-lift:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 12px 30px rgba(80, 120, 255, 0.25);
+}
+
+.skeleton {
+  border-radius: 6px;
+  background: linear-gradient(90deg, rgba(255, 255, 255, 0.06), rgba(255, 255, 255, 0.12), rgba(255, 255, 255, 0.06));
+  background-size: 200% 100%;
+  animation: sk 1.2s linear infinite;
+}
+
+@keyframes sk {
+  0% {
+    background-position: 0 0;
+  }
+  100% {
+    background-position: 200% 0;
+  }
+}
+
+.kbd {
+  display: inline-block;
+  min-width: 1.2em;
+  text-align: center;
+  padding: 0.1rem 0.35rem;
+  border: 1px solid var(--stroke);
+  border-radius: 6px;
+  background: rgba(255, 255, 255, 0.04);
+}
+
+.btn.small {
+  padding: 0.4rem 0.6rem;
+  font-size: 0.92rem;
+}
+
+.right {
+  text-align: right;
+}
+
+.muted {
+  color: var(--muted);
+}
+
+.mono {
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+}
+
+/* Media Queries */
+@media (max-width: 980px) {
+  .kpi-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .two-col {
+    grid-template-columns: 1fr;
+  }
+
+  .quick-actions {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .table {
+    --cols: minmax(140px, 1.4fr) minmax(160px, 1.6fr) minmax(120px, 1fr) minmax(100px, 0.9fr) minmax(160px, 1.2fr);
+  }
+}
+
+@media (max-width: 640px) {
+  .tr.th {
+    display: none;
+  }
+
+  .tr {
+    grid-template-columns: 1fr 1fr;
+    grid-template-areas:
+      "ref   amt"
+      "benef status"
+      "date  date";
+    row-gap: 8px;
+  }
+
+  .tr .ref {
+    grid-area: ref;
+  }
+
+  .tr .benef {
+    grid-area: benef;
+  }
+
+  .tr .amt {
+    grid-area: amt;
+    justify-self: end;
+  }
+
+  .tr .status {
+    grid-area: status;
+  }
+
+  .tr .date {
+    grid-area: date;
+  }
+}
+
+@media (max-width: 560px) {
+  .kpi-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .quick-actions {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 540px) {
+  .carousel.one .bene.full {
+    max-width: 420px;
+    border-radius: 14px;
+    padding: 10px 12px;
+  }
+
+  .carousel.one .bene.full .avatar {
+    width: 32px;
+    height: 32px;
+    border-radius: 10px;
+    font-size: 0.95rem;
+  }
+
+  .carousel.one .bene.full .bene-name {
+    font-size: 1rem;
+    line-height: 1.2;
+    margin-top: 2px;
+  }
+
+  .carousel.one .bene.full .bene-sub,
+  .carousel.one .bene.full .bene-swift,
+  .carousel.one .bene.full .bene-last {
+    font-size: 0.9rem;
+  }
+
+  .carousel.one .bene.full .btn {
+    width: 100%;
+    padding: 0.55rem 0.8rem;
+    font-size: 0.95rem;
+    border-radius: 12px;
+  }
+
+  .card .tips {
+    font-size: 0.92rem;
+  }
+}
+
+@media (max-width: 390px) {
+  .carousel.one .bene.full {
+    max-width: 360px;
+    flex-basis: calc(100% - 30px);
+  }
+
+  .carousel.one .bene.full .bene-name {
+    font-size: 0.96rem;
+  }
+
+  .carousel.one .bene.full .bene-sub,
+  .carousel.one .bene.full .bene-swift,
+  .carousel.one .bene.full .bene-last {
+    font-size: 0.86rem;
+  }
+}

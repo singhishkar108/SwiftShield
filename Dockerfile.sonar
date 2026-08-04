@@ -1,0 +1,32 @@
+# Dockerfile.sonar
+
+# Use the cimg/node image
+FROM cimg/node:20.11
+
+# Switch to root user to install necessary tools and the scanner
+USER root
+
+# 1. Install Java (required by the Sonar Scanner CLI)
+# cimg/node is based on Debian, so we use apt-get
+RUN apt-get update && apt-get install -y openjdk-17-jdk curl unzip && rm -rf /var/lib/apt/lists/*
+
+# 2. Define environment variables for the scanner version and installation path
+ENV SONAR_SCANNER_VERSION 5.0.1.3006
+ENV SONAR_SCANNER_HOME /usr/bin/sonar-scanner
+
+# 3. Download, extract, and install the official Sonar Scanner CLI
+RUN mkdir -p ${SONAR_SCANNER_HOME} \
+    && curl -fSL https://binaries.sonarsource.com/Distribution/sonar-scanner-cli/sonar-scanner-cli-${SONAR_SCANNER_VERSION}-linux.zip -o /tmp/sonar-scanner.zip \
+    && unzip -q /tmp/sonar-scanner.zip -d /tmp/ \
+    && mv /tmp/sonar-scanner-${SONAR_SCANNER_VERSION}-linux/* ${SONAR_SCANNER_HOME}/ \
+    && rm -rf /tmp/*
+
+# 4. CRITICAL FIX: Add the scanner binary path to the system PATH
+# Create a symbolic link to the binary so 'sonar-scanner' is available system-wide
+RUN ln -s ${SONAR_SCANNER_HOME}/bin/sonar-scanner /usr/local/bin/sonar-scanner
+
+# Restore user to the non-root 'circleci' user
+USER circleci
+
+# Verify installation. This should execute the Java binary directly.
+RUN sonar-scanner --version
