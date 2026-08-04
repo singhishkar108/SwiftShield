@@ -8,19 +8,19 @@
 
 ## 📑Table of Contents
 
-✨ 1. [**Introduction**]()<br>
-💻 2. [**Setting Up the Project Locally & Usage**]()<br>
-✅ 3. [**Features and Functionality**]()<br>
-🛡️ 4. [**Security Implementation Highlights**]()<br>
-🚀 5. [**DevSecOps CI Pipeline**]()<br>
-🖼️ 6. [**Screenshots**]()<br>
-🔐 7. [**Employee Login Credentials**]()<br>
-🏗️ 8. [**Architecture**]()<br>
-♻️ 9. [**Changelog**]()<br>
-👥 10. [**Authors & Contributors**]()<br>
-⚖️ 11. [**MIT License**]()<br>
-❓ 12. [**Frequently Asked Questions (FAQ)**]()<br>
-📚 13. [**References**]()<br>
+✨ 1. [**Introduction**](#-1-introduction)<br>
+💻 2. [**Setting Up the Project Locally & Usage**](#-2-setting-up-the-project-locally--usage)<br>
+✅ 3. [**Features and Functionality**](#-3-features-and-functionality)<br>
+🛡️ 4. [**Security Implementation Highlights**](#️-4-security-implementation-highlights)<br>
+🚀 5. [**DevSecOps CI Pipeline**](#-5-devsecops-ci-pipeline)<br>
+🖼️ 6. [**Screenshots**](#️-6-screenshots)<br>
+🔐 7. [**Employee Login Credentials**](#-7-employee-login-credentials)<br>
+🏗️ 8. [**Architecture**](#️-8-architecture-mern-stack)<br>
+♻️ 9. [**Changelog**](#️-9-changelog)<br>
+👥 10. [**Authors & Contributors**](#-10-authors--contributors)<br>
+⚖️ 11. [**MIT License**](#️-11-mit-license)<br>
+❓ 12. [**Frequently Asked Questions (FAQ)**](#-12-frequently-asked-questions-faq)<br>
+📚 13. [**References**](#-13-references)<br>
 
 ---
 
