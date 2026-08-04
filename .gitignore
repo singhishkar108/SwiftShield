@@ -1,0 +1,44 @@
+# Environment & Secrets
+.env
+.env.*
+**/.env
+**/.env.*
+*.pem
+*.key
+*.cert
+
+# SSL Directories
+ssl/
+**/ssl/
+
+# Dependencies
+node_modules/
+**/node_modules/
+
+# Build and Cache Outputs
+dist/
+build/
+coverage/
+**/dist/
+**/build/
+**/coverage/
+.turbo/
+**/.turbo/
+.cache/
+**/.cache/
+.parcel-cache/
+**/.parcel-cache/
+
+# IDE & Editor files
+.vscode/
+.idea/
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.swp
+
+# OS & Log Files
+.DS_Store
+Thumbs.db
+*.log
