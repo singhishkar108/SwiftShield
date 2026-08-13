@@ -304,11 +304,10 @@ A secure DevSecOps pipeline ensures quality and safety throughout development an
 
 ## 🖼️ 6. Screenshots
 
-|     Heading     |          Image / Screenshots           |
-| :-------------: | :------------------------------------: |
-|  **Home Page**  |        ![Home](Assets/Home.jpg)        |
-| **Marketplace** | ![Marketplace](Assets/Marketplace.jpg) |
-| **Categories**  |  ![Categories](Assets/Categories.jpg)  |
+|     Heading      |           Image / Screenshots           |
+| :--------------: | :-------------------------------------: |
+|  **Home Page**   |        ![Home](assets/Home.png)         |
+| **Open Account** | ![Open Account](assets/OpenAccount.png) |
 
 ---
 
