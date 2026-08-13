@@ -1,6 +1,6 @@
 <div align="center">
 
-<h1>🏦🛡️ SwiftShield International Payments Banking Application Portal 🌐💸</h1>
+<h1>🏦🛡️ SwiftShield: International Bank Payments Application Portal 🌐💸</h1>
 
 </div>
 
